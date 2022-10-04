@@ -1,25 +1,37 @@
-
 import { useState } from "react";
+import { AddCategory } from "./components/AddCategory";
+import { GifGrid } from "./components/GifGrid";
 
 
 export const GifExppertApp = () => {
-  const [categories, setCategories] = useState([ 'Jujutsu Kaisen' , 'Kimetsu no yaiba'])
-  console.log (categories)
-  return (
-    <>    
-    {/*  Titulo  */}
-        <h1>GifExppertApp</h1>
 
-    {/* Input */}
+const [categories, setCategories] = useState([ 'Jujutsu Kaisen'])
+const onAddCategory = ( newCategory ) =>{
+
+if (categories.includes(newCategory)) return;
+
+setCategories([newCategory,...categories])
+// console.log( newCategory );
+//setCategories([ newCategory, ...categories ])
+}
+return (
+<>    
+
+  <h1>GifExppertApp</h1>
 
 
-    {/* Listado de Gif */}
-    <ol>
-        { categories.map( category=> {
-            return <li key={ category }>{category}</li>
-        }) }
-    </ol>
-        {/* Gif Item */}
-    </>
+<AddCategory 
+
+onNewCategory = { (value) => onAddCategory(value) }
+currentCategories = { categories }
+/>
+
+
+  { categories.map( (category)=> (<GifGrid key={ category } category = { category } />)
   )
+  }
+
+
+</>
+)
 }
